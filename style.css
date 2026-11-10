@@ -10,7 +10,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #050709;
+    background-color: #030508;
 }
 
 #game-container {
@@ -21,60 +21,84 @@ body, html {
     left: 0;
 }
 
+/* Resident Evil / Survival Horror Vignette */
 #game-container::after {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
+    box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.95);
     pointer-events: none;
     z-index: 5;
 }
 
-#ui-container {
+/* HUD Overlay */
+#hud-container {
     position: absolute;
-    top: 25px;
-    left: 25px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 10;
     pointer-events: none;
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
-.game-title {
-    color: #b33939;
-    font-size: 16px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    margin-bottom: 15px;
-    text-shadow: 0 0 10px rgba(179, 57, 57, 0.6);
-}
-
-.stats-panel {
-    background: rgba(10, 12, 15, 0.85);
-    padding: 15px;
+.hud-panel {
+    background: rgba(10, 15, 22, 0.82);
+    border: 1px solid rgba(0, 255, 204, 0.25);
     border-radius: 4px;
-    border: 1px solid rgba(179, 57, 57, 0.3);
-    backdrop-filter: blur(8px);
-    width: 240px;
+    padding: 15px;
+    backdrop-filter: blur(6px);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
 }
 
-.stat-bar-wrapper {
+.top-left {
+    width: 260px;
+}
+
+.top-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-title {
+    color: #00ffcc;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+}
+
+.hud-text {
+    color: #8c959d;
+    font-size: 11px;
+    letter-spacing: 1px;
     margin-bottom: 10px;
 }
 
-.stat-bar-wrapper:last-child {
+.stat-bar-group {
+    margin-bottom: 8px;
+}
+
+.stat-bar-group:last-child {
     margin-bottom: 0;
 }
 
 .stat-label {
     display: block;
     color: #8c959d;
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 700;
     letter-spacing: 2px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
 }
 
-.stat-bar-outer {
+.stat-bar {
     width: 100%;
     height: 6px;
     background: rgba(255, 255, 255, 0.05);
@@ -83,49 +107,89 @@ body, html {
     overflow: hidden;
 }
 
-.stat-bar-inner {
+.stat-fill {
     height: 100%;
     width: 100%;
     transition: width 0.1s linear;
 }
 
-.health { background: #b33939; box-shadow: 0 0 8px #b33939; }
-.hunger { background: #d35400; }
-.thirst { background: #2980b9; }
-.stamina { background: #27ae60; }
+.health { background: #ff3344; box-shadow: 0 0 8px #ff3344; }
+.hunger { background: #ff9900; }
+.thirst { background: #00aaff; }
+.stamina { background: #00cc66; }
+.oni { background: #9933ff; box-shadow: 0 0 10px #9933ff; }
 
-.badge {
-    margin-top: 15px;
-    display: inline-block;
-    background: rgba(0, 0, 0, 0.8);
-    color: #e74c3c;
-    padding: 6px 12px;
-    border-radius: 2px;
-    font-size: 10px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    border: 1px solid rgba(231, 76, 60, 0.4);
+#minimap {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 255, 204, 0.4);
+    background: #05080f;
+    margin-top: 5px;
 }
 
+#compass {
+    color: #00ffcc;
+    font-weight: bold;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+/* Interaction Prompt */
+#interaction-prompt {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(10, 15, 22, 0.9);
+    border: 1px solid rgba(0, 255, 204, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    z-index: 15;
+    transition: opacity 0.2s;
+}
+
+.prompt-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.prompt-visible {
+    opacity: 1;
+}
+
+.key-hint {
+    background: #00ffcc;
+    color: #030508;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin: 0 4px;
+}
+
+/* Crosshair */
 #crosshair {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 16px;
+    color: rgba(0, 255, 204, 0.5);
+    font-size: 18px;
     pointer-events: none;
     z-index: 10;
-    display: none;
 }
 
+/* Instructions & Start Overlay */
 #instructions {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(3, 4, 6, 0.92);
+    background: rgba(3, 5, 8, 0.94);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -133,76 +197,85 @@ body, html {
 }
 
 .instructions-card {
-    background: #0d1117;
+    background: #0d131f;
     padding: 35px 45px;
-    border-radius: 4px;
-    border: 1px solid #30363d;
+    border-radius: 6px;
+    border: 1px solid rgba(0, 255, 204, 0.3);
     text-align: center;
     color: #c9d1d9;
-    max-width: 480px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+    max-width: 520px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.9);
 }
 
 .instructions-card h1 {
-    font-size: 20px;
+    font-size: 22px;
     letter-spacing: 3px;
-    color: #ff3344;
-    text-shadow: 0 0 15px rgba(255, 51, 68, 0.4);
+    color: #00ffcc;
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
 }
 
 .subtitle {
-    color: #656d76;
+    color: #8b949e;
     font-size: 11px;
-    margin-top: 8px;
-    letter-spacing: 1px;
+    margin-top: 6px;
+    letter-spacing: 2px;
+}
+
+.story-snippet {
+    font-size: 12px;
+    color: #a0aec0;
+    font-style: italic;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-left: 3px solid #00ffcc;
+    margin: 15px 0;
+    text-align: left;
+    line-height: 1.4;
 }
 
 hr {
     border: none;
     height: 1px;
-    background: #30363d;
-    margin: 20px 0;
+    background: rgba(0, 255, 204, 0.2);
+    margin: 15px 0;
 }
 
 .controls-grid {
     text-align: left;
-    font-size: 12px;
+    font-size: 11px;
     color: #8b949e;
     margin-bottom: 25px;
-}
-
-.controls-grid div {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 
 .key {
     background: #161b22;
-    color: #f0f6fc;
-    padding: 3px 8px;
+    color: #00ffcc;
+    padding: 3px 7px;
     border-radius: 3px;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: bold;
-    margin-right: 8px;
-    border: 1px solid #30363d;
+    margin-right: 6px;
+    border: 1px solid rgba(0,255,204,0.3);
 }
 
 #start-btn {
-    background: #b33939;
-    color: #fff;
+    background: #00ffcc;
+    color: #030508;
     border: none;
-    padding: 12px 30px;
+    padding: 12px 35px;
     font-size: 13px;
     font-weight: bold;
-    border-radius: 2px;
+    border-radius: 3px;
     cursor: pointer;
     letter-spacing: 2px;
     transition: all 0.2s;
-    box-shadow: 0 0 15px rgba(179, 57, 57, 0.4);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
 }
 
 #start-btn:hover {
-    background: #c0392b;
-    box-shadow: 0 0 25px rgba(192, 57, 43, 0.7);
+    background: #00cca3;
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.7);
 }
