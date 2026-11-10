@@ -1,4 +1,4 @@
-// Input Management System (Keyboard & Mouse)
+// Input Management System (Safe Keyboard & Mouse Handling)
 const Input = {
     keys: {},
     mouseMovement: { x: 0, y: 0 },
@@ -6,7 +6,13 @@ const Input = {
 
     init() {
         window.addEventListener('keydown', (e) => {
+            // Prevent default browser behaviors for game keys to stop screen flickering/blanking
+            if (['KeyW', 'KeyA', 'KeyS', 'KeyD', 'Space', 'ShiftLeft', 'KeyV', 'KeyF', 'KeyQ'].includes(e.code)) {
+                e.preventDefault();
+            }
+
             this.keys[e.code] = true;
+
             if (e.code === 'KeyV' && typeof toggleCamera === 'function') {
                 toggleCamera();
             }
@@ -41,4 +47,5 @@ const Input = {
         return move;
     }
 };
+
 Input.init();
