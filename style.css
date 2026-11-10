@@ -21,7 +21,6 @@ body, html {
     left: 0;
 }
 
-/* Resident Evil Style Cinematic Vignette Overlay */
 #game-container::after {
     content: '';
     position: absolute;
