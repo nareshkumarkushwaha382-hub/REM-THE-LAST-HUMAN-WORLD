@@ -31,12 +31,10 @@ const stats = {
 const colliders = [];
 
 function init() {
-    // 1. Scene with Dark Resident Evil Atmosphere & Thick Fog
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x06090f);
-    scene.fog = new THREE.FogExp2(0x06090f, 0.022); // Dense spooky fog
+    scene.fog = new THREE.FogExp2(0x06090f, 0.022);
 
-    // 2. Cameras
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     
     pitchObject = new THREE.Object3D();
@@ -47,7 +45,6 @@ function init() {
     yawObject.add(pitchObject);
     scene.add(yawObject);
 
-    // 3. Renderer
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -57,41 +54,29 @@ function init() {
     renderer.toneMappingExposure = 1.2;
     document.getElementById('game-container').appendChild(renderer.domElement);
 
-    // 4. Post-Processing Setup (Bloom for Glowing Lights)
     const renderScene = new THREE.RenderPass(scene, camera);
     const bloomPass = new THREE.UnrealBloomPass(
         new THREE.Vector2(window.innerWidth, window.innerHeight),
-        0.8,  // bloom strength
-        0.4,  // radius
-        0.85  // threshold
+        0.8,  
+        0.4,  
+        0.85  
     );
 
     composer = new THREE.EffectComposer(renderer);
     composer.addPass(renderScene);
     composer.addPass(bloomPass);
 
-    // 5. Dark Cinematic Lighting
     setupLighting();
-
-    // 6. Environment
     createParkEnvironment();
-
-    // 7. Player
     createPlayer();
-
-    // 8. Events
     setupEvents();
-
-    // 9. Loop
     animate();
 }
 
 function setupLighting() {
-    // Dark eerie moonlight ambient light
     const ambientLight = new THREE.AmbientLight(0x111927, 0.3);
     scene.add(ambientLight);
 
-    // Cold blue moonlight directional light casting deep shadows
     const moonLight = new THREE.DirectionalLight(0x4a6984, 0.7);
     moonLight.position.set(40, 70, -30);
     moonLight.castShadow = true;
@@ -108,7 +93,6 @@ function setupLighting() {
 }
 
 function createParkEnvironment() {
-    // Dark Grass Ground
     const groundGeo = new THREE.PlaneGeometry(200, 200, 32, 32);
     const groundMat = new THREE.MeshStandardMaterial({ 
         color: 0x1a241c, 
@@ -120,7 +104,6 @@ function createParkEnvironment() {
     ground.receiveShadow = true;
     scene.add(ground);
 
-    // Dark Asphalt / Wet Stone Paths
     const pathMat = new THREE.MeshStandardMaterial({ color: 0x1c2128, roughness: 0.6, metalness: 0.2 });
     
     const path1 = new THREE.Mesh(new THREE.PlaneGeometry(10, 180), pathMat);
@@ -144,7 +127,7 @@ function createParkEnvironment() {
 
 function generateTrees() {
     const trunkMat = new THREE.MeshStandardMaterial({ color: 0x1b1918, roughness: 0.9 });
-    const sakuraFoliageMat = new THREE.MeshStandardMaterial({ color: 0x543344, roughness: 0.8 }); // Dark withered sakura
+    const sakuraFoliageMat = new THREE.MeshStandardMaterial({ color: 0x543344, roughness: 0.8 });
     const pineFoliageMat = new THREE.MeshStandardMaterial({ color: 0x132418, roughness: 0.8 });
 
     for (let i = 0; i < 45; i++) {
@@ -198,7 +181,7 @@ function generateBenches() {
 function generateStreetlamps() {
     const lampPositions = [{ x: 7, z: 7 }, { x: -7, z: -7 }, { x: 7, z: -40 }, { x: -40, z: 7 }];
     const poleMat = new THREE.MeshStandardMaterial({ color: 0x161b22, metalness: 0.9, roughness: 0.3 });
-    const lightMat = new THREE.MeshBasicMaterial({ color: 0xffaa44 }); // Warm spooky amber glow
+    const lightMat = new THREE.MeshBasicMaterial({ color: 0xffaa44 });
 
     lampPositions.forEach(p => {
         const lamp = new THREE.Group();
@@ -211,7 +194,6 @@ function generateStreetlamps() {
         head.position.y = 4;
         lamp.add(head);
 
-        // Bright Point light for bloom
         const pointLight = new THREE.PointLight(0xff9933, 2.5, 18);
         pointLight.position.y = 3.8;
         pointLight.castShadow = true;
