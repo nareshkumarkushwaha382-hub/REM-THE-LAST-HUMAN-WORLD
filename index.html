@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Game Canvas Container -->
     <div id="game-container"></div>
 
-    <!-- UI Overlay -->
     <div id="ui-container">
         <div class="game-title">REM: THE LAST HUMAN WORLD</div>
         
-        <!-- Survival Stats HUD -->
         <div class="stats-panel">
             <div class="stat-bar-wrapper">
                 <span class="stat-label">HEALTH</span>
@@ -45,18 +42,15 @@
             </div>
         </div>
 
-        <!-- Camera Mode Indicator -->
         <div id="camera-mode-badge" class="badge">CAMERA: 3RD PERSON [V]</div>
     </div>
 
-    <!-- Crosshair for First Person -->
     <div id="crosshair">+</div>
 
-    <!-- Start Overlay / Controls Prompt -->
     <div id="instructions">
         <div class="instructions-card">
             <h1>REM: THE LAST HUMAN WORLD</h1>
-            <p class="subtitle">Tokyo Park Prototype v0.1</p>
+            <p class="subtitle">Tokyo Park Prototype v0.2 (Survival Horror Edition)</p>
             <hr>
             <div class="controls-grid">
                 <div><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> Move</div>
@@ -65,12 +59,19 @@
                 <div><span class="key">Space</span> Jump</div>
                 <div><span class="key">V</span> Toggle Camera (1st / 3rd Person)</div>
             </div>
-            <button id="start-btn">CLICK TO PLAY</button>
+            <button id="start-btn">ENTER THE NIGHTMARE</button>
         </div>
     </div>
 
-    <!-- Three.js Library Import (CDN) -->
+    <!-- Three.js & Postprocessing CDN Imports -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+    
     <script src="game.js"></script>
 </body>
 </html>
