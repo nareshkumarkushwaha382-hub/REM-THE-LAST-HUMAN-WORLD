@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #000;
+}
+
+#game-container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* HUD Overlay */
+#ui-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.game-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.stats-panel {
+    background: rgba(15, 20, 25, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    width: 240px;
+}
+
+.stat-bar-wrapper {
+    margin-bottom: 10px;
+}
+
+.stat-bar-wrapper:last-child {
+    margin-bottom: 0;
+}
+
+.stat-label {
+    display: block;
+    color: #ccc;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.stat-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stat-bar-inner {
+    height: 100%;
+    width: 100%;
+    transition: width 0.1s linear;
+}
+
+.health { background: linear-gradient(90deg, #ff4d4d, #ff1a1a); }
+.hunger { background: linear-gradient(90deg, #ffaa00, #e69900); }
+.thirst { background: linear-gradient(90deg, #3399ff, #0073e6); }
+.stamina { background: linear-gradient(90deg, #33cc33, #269926); }
+
+.badge {
+    margin-top: 15px;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.6);
+    color: #00ffcc;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    border: 1px solid rgba(0, 255, 204, 0.3);
+}
+
+/* Crosshair */
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 20px;
+    pointer-events: none;
+    z-index: 10;
+    display: none;
+}
+
+/* Start Overlay */
+#instructions {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.instructions-card {
+    background: #12161a;
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 1px solid #2a323d;
+    text-align: center;
+    color: #fff;
+    max-width: 450px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.instructions-card h1 {
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: #ff3366;
+}
+
+.subtitle {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #2a323d;
+    margin: 20px 0;
+}
+
+.controls-grid {
+    text-align: left;
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 25px;
+}
+
+.controls-grid div {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.key {
+    background: #2a323d;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-right: 6px;
+    border: 1px solid #3a4554;
+}
+
+#start-btn {
+    background: #ff3366;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background 0.2s;
+}
+
+#start-btn:hover {
+    background: #e62e5c;
+}
