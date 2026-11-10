@@ -1,8 +1,9 @@
-// Player Character (Rem) & Mechanics
+// Player Character (Rem) & Mechanics with Flashlight
 let player, playerMesh;
 let isFirstPerson = false;
 let isAwakened = false;
 let oniEnergy = 100;
+let flashlight; // Flashlight reference
 
 const playerStats = {
     health: 100,
@@ -33,13 +34,27 @@ function createPlayer() {
     player.add(playerMesh);
 
     // Blue Hair & Head
-    const headMat = new THREE.MeshStandardMaterial({ color: 0x55aaff }); // Iconic blue hair
+    const headMat = new THREE.MeshStandardMaterial({ color: 0x55aaff });
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 12), headMat);
     head.position.y = 1.55;
     head.castShadow = true;
     player.add(head);
 
+    // Flashlight (SpotLight attached to camera pitch object so it points where player looks)
+    flashlight = new THREE.SpotLight(0xffffff, 3.5, 30, Math.PI / 6, 0.5, 1);
+    flashlight.position.set(0, 0, 0);
+    flashlight.target.position.set(0, 0, -10);
+    flashlight.visible = true; // Default ON
+    
+    pitchObject.add(flashlight);
+    pitchObject.add(flashlight.target);
+
     scene.add(player);
+}
+
+function toggleFlashlight() {
+    flashlight.visible = !flashlight.visible;
+    showPrompt(flashlight.visible ? "Flashlight ON" : "Flashlight OFF");
 }
 
 function toggleCamera() {
@@ -82,17 +97,20 @@ function updatePlayer(delta) {
         playerStats.stamina = Math.min(100, playerStats.stamina + delta * 8);
     }
 
-    // Survival stats gradual depletion
     playerStats.hunger = Math.max(0, playerStats.hunger - delta * 0.2);
     playerStats.thirst = Math.max(0, playerStats.thirst - delta * 0.4);
 
-    // Mouse Look
+    // Toggle Flashlight with 'F' Key
+    if (Input.keys['KeyF']) {
+        toggleFlashlight();
+        Input.keys['KeyF'] = false; // Prevent rapid toggling
+    }
+
     const mouse = Input.consumeMouse();
     yawObject.rotation.y -= mouse.x * 0.002;
     pitchObject.rotation.x -= mouse.y * 0.002;
     pitchObject.rotation.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, pitchObject.rotation.x));
 
-    // Movement Physics
     velocity.x -= velocity.x * 10.0 * delta;
     velocity.z -= velocity.z * 10.0 * delta;
 
@@ -108,7 +126,6 @@ function updatePlayer(delta) {
 
     const targetPos = player.position.clone().add(moveVector);
 
-    // Boundary & Colliders Collision
     targetPos.x = Math.max(-110, Math.min(110, targetPos.x));
     targetPos.z = Math.max(-110, Math.min(110, targetPos.z));
 
@@ -122,7 +139,6 @@ function updatePlayer(delta) {
 
     player.position.copy(targetPos);
 
-    // Gravity & Jump
     verticalVelocity -= GRAVITY * delta;
     player.position.y += verticalVelocity * delta;
     if (player.position.y <= 0) {
@@ -134,7 +150,6 @@ function updatePlayer(delta) {
         verticalVelocity = JUMP_FORCE;
     }
 
-    // Camera Rig Sync
     yawObject.position.copy(player.position);
     yawObject.position.y += 1.5;
 
