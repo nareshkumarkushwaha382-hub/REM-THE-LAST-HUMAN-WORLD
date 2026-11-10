@@ -7,59 +7,74 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Game Canvas -->
     <div id="game-container"></div>
 
-    <div id="ui-container">
-        <div class="game-title">REM: THE LAST HUMAN WORLD</div>
-        
-        <div class="stats-panel">
-            <div class="stat-bar-wrapper">
+    <!-- UI HUD Layer -->
+    <div id="hud-container">
+        <!-- Top Left: Stats & Time -->
+        <div class="hud-panel top-left">
+            <div class="game-title">REM: THE LAST HUMAN WORLD</div>
+            <div id="time-display" class="hud-text">06:30 AM | DAY 1</div>
+            <div id="weather-display" class="hud-text">OVERCAST TOKYO</div>
+            
+            <div class="stat-bar-group">
                 <span class="stat-label">HEALTH</span>
-                <div class="stat-bar-outer">
-                    <div id="health-bar" class="stat-bar-inner health" style="width: 100%;"></div>
-                </div>
+                <div class="stat-bar"><div id="bar-health" class="stat-fill health"></div></div>
             </div>
-            
-            <div class="stat-bar-wrapper">
+            <div class="stat-bar-group">
                 <span class="stat-label">HUNGER</span>
-                <div class="stat-bar-outer">
-                    <div id="hunger-bar" class="stat-bar-inner hunger" style="width: 100%;"></div>
-                </div>
+                <div class="stat-bar"><div id="bar-hunger" class="stat-fill hunger"></div></div>
             </div>
-            
-            <div class="stat-bar-wrapper">
+            <div class="stat-bar-group">
                 <span class="stat-label">THIRST</span>
-                <div class="stat-bar-outer">
-                    <div id="thirst-bar" class="stat-bar-inner thirst" style="width: 100%;"></div>
-                </div>
+                <div class="stat-bar"><div id="bar-thirst" class="stat-fill thirst"></div></div>
             </div>
-            
-            <div class="stat-bar-wrapper">
+            <div class="stat-bar-group">
                 <span class="stat-label">STAMINA</span>
-                <div class="stat-bar-outer">
-                    <div id="stamina-bar" class="stat-bar-inner stamina" style="width: 100%;"></div>
-                </div>
+                <div class="stat-bar"><div id="bar-stamina" class="stat-fill stamina"></div></div>
+            </div>
+            <div class="stat-bar-group">
+                <span class="stat-label">ONI ENERGY</span>
+                <div class="stat-bar"><div id="bar-oni" class="stat-fill oni"></div></div>
             </div>
         </div>
 
-        <div id="camera-mode-badge" class="badge">CAMERA: 3RD PERSON [V]</div>
+        <!-- Top Right: Minimap & Compass -->
+        <div class="hud-panel top-right">
+            <div id="compass" class="hud-text">N 0°</div>
+            <canvas id="minimap" width="140" height="140"></canvas>
+        </div>
+
+        <!-- Bottom Center: Interaction Prompt -->
+        <div id="interaction-prompt" class="prompt-hidden">
+            Press <span class="key-hint">E</span> to <span id="prompt-action">Interact</span>
+        </div>
     </div>
 
+    <!-- Crosshair -->
     <div id="crosshair">+</div>
 
+    <!-- Start / Pause Overlay -->
     <div id="instructions">
         <div class="instructions-card">
             <h1>REM: THE LAST HUMAN WORLD</h1>
-            <p class="subtitle">Tokyo Park Prototype v0.2 (Survival Horror Edition)</p>
+            <p class="subtitle">Tokyo Park • 6:30 AM • Awakening</p>
             <hr>
+            <div class="story-snippet">
+                "Waking in an empty Tokyo park with fragmented memories, blue hair, and a maid uniform. The world outside is silent... except for the groans."
+            </div>
             <div class="controls-grid">
-                <div><span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span> Move</div>
-                <div><span class="key">Mouse</span> Look Around</div>
+                <div><span class="key">W A SD</span> Move</div>
                 <div><span class="key">Shift</span> Sprint</div>
                 <div><span class="key">Space</span> Jump</div>
-                <div><span class="key">V</span> Toggle Camera (1st / 3rd Person)</div>
+                <div><span class="key">C</span> Crouch</div>
+                <div><span class="key">V</span> Toggle Camera (1st / 3rd)</div>
+                <div><span class="key">Q</span> Oni Awakening (Power)</div>
+                <div><span class="key">E</span> Interact</div>
+                <div><span class="key">Mouse</span> Look</div>
             </div>
-            <button id="start-btn">ENTER THE NIGHTMARE</button>
+            <button id="start-btn">BEGIN SURVIVAL</button>
         </div>
     </div>
 
@@ -71,7 +86,18 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    
-    <script src="game.js"></script>
+
+    <!-- Game Modular Scripts -->
+    <script src="js/systems/storage.js"></script>
+    <script src="js/systems/input.js"></script>
+    <script src="js/engine/audio.js"></script>
+    <script src="js/engine/renderer.js"></script>
+    <script src="js/engine/scene.js"></script>
+    <script src="js/world/time_weather.js"></script>
+    <script src="js/world/tokyo_park.js"></script>
+    <script src="js/entities/zombies.js"></script>
+    <script src="js/entities/player.js"></script>
+    <script src="js/ui/hud.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
