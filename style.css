@@ -3,14 +3,14 @@
     padding: 0;
     box-sizing: border-box;
     user-select: none;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #000;
+    background-color: #050709;
 }
 
 #game-container {
@@ -21,31 +21,41 @@ body, html {
     left: 0;
 }
 
-/* HUD Overlay */
+/* Resident Evil Style Cinematic Vignette Overlay */
+#game-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.9);
+    pointer-events: none;
+    z-index: 5;
+}
+
 #ui-container {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 25px;
+    left: 25px;
     z-index: 10;
     pointer-events: none;
 }
 
 .game-title {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 800;
-    letter-spacing: 2px;
+    color: #b33939;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: 3px;
     margin-bottom: 15px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    text-shadow: 0 0 10px rgba(179, 57, 57, 0.6);
 }
 
 .stats-panel {
-    background: rgba(15, 20, 25, 0.7);
+    background: rgba(10, 12, 15, 0.85);
     padding: 15px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    border-radius: 4px;
+    border: 1px solid rgba(179, 57, 57, 0.3);
+    backdrop-filter: blur(8px);
     width: 240px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
 }
 
 .stat-bar-wrapper {
@@ -58,18 +68,19 @@ body, html {
 
 .stat-label {
     display: block;
-    color: #ccc;
+    color: #8c959d;
     font-size: 10px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     margin-bottom: 4px;
 }
 
 .stat-bar-outer {
     width: 100%;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
     overflow: hidden;
 }
 
@@ -79,45 +90,43 @@ body, html {
     transition: width 0.1s linear;
 }
 
-.health { background: linear-gradient(90deg, #ff4d4d, #ff1a1a); }
-.hunger { background: linear-gradient(90deg, #ffaa00, #e69900); }
-.thirst { background: linear-gradient(90deg, #3399ff, #0073e6); }
-.stamina { background: linear-gradient(90deg, #33cc33, #269926); }
+.health { background: #b33939; box-shadow: 0 0 8px #b33939; }
+.hunger { background: #d35400; }
+.thirst { background: #2980b9; }
+.stamina { background: #27ae60; }
 
 .badge {
     margin-top: 15px;
     display: inline-block;
-    background: rgba(0, 0, 0, 0.6);
-    color: #00ffcc;
+    background: rgba(0, 0, 0, 0.8);
+    color: #e74c3c;
     padding: 6px 12px;
-    border-radius: 4px;
-    font-size: 11px;
+    border-radius: 2px;
+    font-size: 10px;
     font-weight: bold;
-    letter-spacing: 1px;
-    border: 1px solid rgba(0, 255, 204, 0.3);
+    letter-spacing: 2px;
+    border: 1px solid rgba(231, 76, 60, 0.4);
 }
 
-/* Crosshair */
 #crosshair {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 20px;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 16px;
     pointer-events: none;
     z-index: 10;
     display: none;
 }
 
-/* Start Overlay */
 #instructions {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(3, 4, 6, 0.92);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -125,39 +134,41 @@ body, html {
 }
 
 .instructions-card {
-    background: #12161a;
-    padding: 30px 40px;
-    border-radius: 12px;
-    border: 1px solid #2a323d;
+    background: #0d1117;
+    padding: 35px 45px;
+    border-radius: 4px;
+    border: 1px solid #30363d;
     text-align: center;
-    color: #fff;
-    max-width: 450px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    color: #c9d1d9;
+    max-width: 480px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.9);
 }
 
 .instructions-card h1 {
-    font-size: 22px;
-    letter-spacing: 2px;
-    color: #ff3366;
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #ff3344;
+    text-shadow: 0 0 15px rgba(255, 51, 68, 0.4);
 }
 
 .subtitle {
-    color: #888;
-    font-size: 12px;
-    margin-top: 5px;
+    color: #656d76;
+    font-size: 11px;
+    margin-top: 8px;
+    letter-spacing: 1px;
 }
 
 hr {
     border: none;
     height: 1px;
-    background: #2a323d;
+    background: #30363d;
     margin: 20px 0;
 }
 
 .controls-grid {
     text-align: left;
-    font-size: 13px;
-    color: #bbb;
+    font-size: 12px;
+    color: #8b949e;
     margin-bottom: 25px;
 }
 
@@ -168,29 +179,31 @@ hr {
 }
 
 .key {
-    background: #2a323d;
-    color: #fff;
+    background: #161b22;
+    color: #f0f6fc;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 3px;
     font-size: 11px;
     font-weight: bold;
-    margin-right: 6px;
-    border: 1px solid #3a4554;
+    margin-right: 8px;
+    border: 1px solid #30363d;
 }
 
 #start-btn {
-    background: #ff3366;
+    background: #b33939;
     color: #fff;
     border: none;
     padding: 12px 30px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: bold;
-    border-radius: 6px;
+    border-radius: 2px;
     cursor: pointer;
-    letter-spacing: 1px;
-    transition: background 0.2s;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    box-shadow: 0 0 15px rgba(179, 57, 57, 0.4);
 }
 
 #start-btn:hover {
-    background: #e62e5c;
+    background: #c0392b;
+    box-shadow: 0 0 25px rgba(192, 57, 43, 0.7);
 }
